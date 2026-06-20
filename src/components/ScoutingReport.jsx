@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { scoutBoth, TIERS } from '../lib/scouting.js'
+import { leagueLogoUrl } from '../lib/leagues.js'
 import { ZapIcon, TrendIcon, InfoIcon } from './Icons.jsx'
 
 export default function ScoutingReport({ matches }) {
@@ -56,7 +57,17 @@ function ScoutCard({ player, name, jerseyClass, data, side }) {
 
       <div className="scout-tier">
         <div className="tier-row">
-          <span className="tier-dot" style={{ background: accent }} />
+          {tier.leagueId ? (
+            <img
+              src={leagueLogoUrl(tier.leagueId)}
+              alt=""
+              className="tier-league-logo"
+              width={28}
+              height={28}
+            />
+          ) : (
+            <span className="tier-dot" style={{ background: accent }} />
+          )}
           <div className="tier-text">
             <div className="tier-name">{tier.name}</div>
             <div className="tier-sub">{tier.sub}</div>
@@ -68,8 +79,8 @@ function ScoutCard({ player, name, jerseyClass, data, side }) {
         {nextTier ? (
           <div className="tier-next">
             {nextTier.scoreNeeded > 0
-              ? <>+{nextTier.scoreNeeded.toFixed(1)} OVR to <strong>{nextTier.shortName}</strong></>
-              : <>Knocking on <strong>{nextTier.shortName}</strong>'s door</>}
+              ? <>+{nextTier.scoreNeeded.toFixed(1)} OVR to <strong>{nextTier.shortName}</strong>{nextTier.leagueId && <img src={leagueLogoUrl(nextTier.leagueId)} alt="" className="tier-next-logo" width={14} height={14} />}</>
+              : <>Knocking on <strong>{nextTier.shortName}</strong>'s door{nextTier.leagueId && <img src={leagueLogoUrl(nextTier.leagueId)} alt="" className="tier-next-logo" width={14} height={14} />}</>}
           </div>
         ) : (
           <div className="tier-next">Peak tier reached.</div>
@@ -132,7 +143,17 @@ export function TierLadder() {
     <div className="tier-ladder">
       {TIERS.map(t => (
         <div key={t.name} className="ladder-row">
-          <span className="ladder-dot" style={{ background: t.accent }} />
+          {t.leagueId ? (
+            <img
+              src={leagueLogoUrl(t.leagueId)}
+              alt=""
+              className="ladder-league-logo"
+              width={20}
+              height={20}
+            />
+          ) : (
+            <span className="ladder-dot" style={{ background: t.accent }} />
+          )}
           <span className="ladder-range">{t.min}–{t.max}</span>
           <span className="ladder-name">{t.name}</span>
           <span className="ladder-sub">{t.sub}</span>

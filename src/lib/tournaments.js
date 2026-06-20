@@ -237,7 +237,7 @@ export function trophyCabinet(rows) {
   for (const row of rows) {
     const d = row.data
     if (!d?.revealed || !d.results?.prizes) continue
-    const entry = { key: row.key, name: d.name, kind: d.kind, badge: d.badge_key }
+    const entry = { key: row.key, name: d.name, kind: d.kind, badge: d.badge_key, leagueId: d.league_id || null }
     for (const [prize, info] of Object.entries(d.results.prizes)) {
       if (!cab.mohamed[prize]) continue
       for (const winner of (info.winners || [])) {
@@ -248,15 +248,32 @@ export function trophyCabinet(rows) {
   return cab
 }
 
+// ---------- Challenge bonus points ----------
+
+export function computeChallengeBonuses(matches) {
+  const result = { mohamed: 0, mohaned: 0 }
+  for (const m of matches) {
+    const cr = m.challengeResult
+    if (!cr || !cr.points) continue
+    if (cr.completions?.mohamed) result.mohamed += cr.points
+    if (cr.completions?.mohaned) result.mohaned += cr.points
+  }
+  return result
+}
+
 // ---------- Helpers for App / UI ----------
 
 export function findTournament(rows, key) {
   return rows.find(r => r.key === key) || null
 }
 
+const KNOWN_KINDS = new Set(['monthly', 'yearly', 'custom'])
+
 export function listTournaments(rows, matches, today = todayStr()) {
   // returns rows sorted: live first, then upcoming, then finished by most recent
-  const decorated = rows.map(r => ({ row: r, status: tournamentStatus(r, matches, today) }))
+  const decorated = rows
+    .filter(r => KNOWN_KINDS.has(r.data?.kind))
+    .map(r => ({ row: r, status: tournamentStatus(r, matches, today) }))
   const rank = { live: 0, upcoming: 1, finished: 2 }
   decorated.sort((a, b) => {
     if (rank[a.status] !== rank[b.status]) return rank[a.status] - rank[b.status]
@@ -272,6 +289,36 @@ function sortKeyForRow(row) {
   if (d.kind === 'monthly') return d.month_key
   if (d.kind === 'yearly')  return String(d.year)
   return d.start_date || row.key
+}
+
+export function matchesLeftFor(row, matches, today = todayStr()) {
+  const data = row.data
+  const status = tournamentStatus(row, matches, today)
+  if (status !== 'live') return null
+  if (data.kind === 'custom') {
+    const eligible = filterMatchesForTournament(row, matches)
+    const left = Math.max(0, (data.matches_required || 0) - eligible.length)
+    return left === 0 ? null : `${left} match${left === 1 ? '' : 'es'} left`
+  }
+  if (data.kind === 'monthly') {
+    const [y, m] = (data.month_key || '').split('-').map(Number)
+    if (!y || !m) return null
+    const endOfMonth = new Date(Date.UTC(y, m, 0)) // last day of month
+    const todayDate = new Date(today + 'T00:00:00Z')
+    const daysLeft = Math.max(0, Math.round((endOfMonth - todayDate) / 86400000))
+    const weeksLeft = Math.round(daysLeft / 7)
+    return weeksLeft > 0 ? `~${weeksLeft} week${weeksLeft === 1 ? '' : 's'} left` : daysLeft > 0 ? `${daysLeft} day${daysLeft === 1 ? '' : 's'} left` : null
+  }
+  if (data.kind === 'yearly') {
+    const y = Number(data.year)
+    if (!y) return null
+    const endOfYear = new Date(Date.UTC(y, 11, 31))
+    const todayDate = new Date(today + 'T00:00:00Z')
+    const daysLeft = Math.max(0, Math.round((endOfYear - todayDate) / 86400000))
+    const weeksLeft = Math.round(daysLeft / 7)
+    return weeksLeft > 0 ? `~${weeksLeft} week${weeksLeft === 1 ? '' : 's'} left` : daysLeft > 0 ? `${daysLeft} day${daysLeft === 1 ? '' : 's'} left` : null
+  }
+  return null
 }
 
 export function progressFor(row, matches) {

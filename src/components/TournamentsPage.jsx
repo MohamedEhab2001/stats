@@ -9,7 +9,7 @@ import {
   activeBlockingCustom, tournamentStatus
 } from '../lib/tournaments.js'
 
-export default function TournamentsPage({ matches, tournaments, onCreate, onReveal, revealingKey }) {
+export default function TournamentsPage({ matches, tournaments, onCreate, onReveal, revealingKey, onDeleteTournament }) {
   const [openKey, setOpenKey] = useState(null)
   const [creating, setCreating] = useState(false)
 
@@ -25,7 +25,7 @@ export default function TournamentsPage({ matches, tournaments, onCreate, onReve
   const openRow = openKey ? findTournament(tournaments, openKey) : null
 
   const finishedRevealable = useMemo(
-    () => tournaments.filter(r => tournamentStatus(r, matches, today) === 'finished' && !r.data.revealed).length,
+    () => tournaments.filter(r => ['monthly','yearly','custom'].includes(r.data?.kind) && tournamentStatus(r, matches, today) === 'finished' && !r.data.revealed).length,
     [tournaments, matches, today]
   )
 
@@ -133,6 +133,7 @@ export default function TournamentsPage({ matches, tournaments, onCreate, onReve
           onClose={() => setOpenKey(null)}
           onReveal={onReveal}
           revealing={revealingKey === openRow.key}
+          onDelete={onDeleteTournament}
         />
       )}
 

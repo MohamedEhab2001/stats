@@ -1,16 +1,16 @@
 import { STAT_DEFS, isComplete, performanceIndex } from './stats.js'
 
 export const TIERS = [
-  { min: 0,  max: 10, name: 'Office 5-a-side',        sub: 'Casual lunchtime kickabout',         shortName: 'Office 5s',     accent: '#94a3b8' },
-  { min: 11, max: 20, name: 'Sunday League Hopeful',  sub: 'Hungover, but full of effort',       shortName: 'Sunday League', accent: '#64748b' },
-  { min: 21, max: 30, name: 'Egyptian Third Division',sub: 'Dusty pitch, real ambition',         shortName: 'Egyptian D3',   accent: '#a16207' },
-  { min: 31, max: 40, name: 'Burkinabe Top Flight',   sub: 'Local cult hero',                    shortName: 'Burkinabe',     accent: '#b45309' },
-  { min: 41, max: 50, name: 'Belgian Pro League',     sub: 'Solid European pro',                 shortName: 'Belgian Pro',   accent: '#0891b2' },
-  { min: 51, max: 60, name: 'Eredivisie Regular',     sub: 'Eyed by mid-table scouts',           shortName: 'Eredivisie',    accent: '#0e7490' },
-  { min: 61, max: 70, name: 'Serie A Squad Player',   sub: 'Rotation option in a big league',    shortName: 'Serie A',       accent: '#15803d' },
-  { min: 71, max: 80, name: 'Bundesliga Starter',     sub: 'Locked-in first XI',                 shortName: 'Bundesliga',    accent: '#047857' },
-  { min: 81, max: 90, name: 'Premier League Star',    sub: 'Highlight-reel regular',             shortName: 'PL Star',       accent: '#7c3aed' },
-  { min: 91, max: 100,name: 'Champions League Elite', sub: 'Generational talent',                shortName: 'UCL Elite',     accent: '#be185d' }
+  { min: 0,  max: 10, name: 'Office 5-a-side',        sub: 'Casual lunchtime kickabout',         shortName: 'Office 5s',     accent: '#94a3b8', leagueId: null },
+  { min: 11, max: 20, name: 'Sunday League Hopeful',  sub: 'Hungover, but full of effort',       shortName: 'Sunday League', accent: '#64748b', leagueId: null },
+  { min: 21, max: 30, name: 'Egyptian Third Division',sub: 'Dusty pitch, real ambition',         shortName: 'Egyptian D3',   accent: '#a16207', leagueId: null },
+  { min: 31, max: 40, name: 'Burkinabe Top Flight',   sub: 'Local cult hero',                    shortName: 'Burkinabe',     accent: '#b45309', leagueId: null },
+  { min: 41, max: 50, name: 'Belgian Pro League',     sub: 'Solid European pro',                 shortName: 'Belgian Pro',   accent: '#0891b2', leagueId: 144  },
+  { min: 51, max: 60, name: 'Eredivisie Regular',     sub: 'Eyed by mid-table scouts',           shortName: 'Eredivisie',    accent: '#0e7490', leagueId: 88   },
+  { min: 61, max: 70, name: 'Serie A Squad Player',   sub: 'Rotation option in a big league',    shortName: 'Serie A',       accent: '#15803d', leagueId: 135  },
+  { min: 71, max: 80, name: 'Bundesliga Starter',     sub: 'Locked-in first XI',                 shortName: 'Bundesliga',    accent: '#047857', leagueId: 78   },
+  { min: 81, max: 90, name: 'Premier League Star',    sub: 'Highlight-reel regular',             shortName: 'PL Star',       accent: '#7c3aed', leagueId: 39   },
+  { min: 91, max: 100,name: 'Champions League Elite', sub: 'Generational talent',                shortName: 'UCL Elite',     accent: '#be185d', leagueId: 2    }
 ]
 
 const MIN_MATCHES = 3

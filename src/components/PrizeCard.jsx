@@ -1,14 +1,14 @@
 import { PRIZE_ICONS } from './Icons.jsx'
 import { PRIZE_META, computePrizes, standings } from '../lib/tournaments.js'
+import { leagueLogoUrl } from '../lib/leagues.js'
 
 const NAME = { mohamed: 'Mohamed', mohaned: 'Mohaned' }
 
-export default function PrizeCard({ prizeKey, kind, matches, revealed, result }) {
+export default function PrizeCard({ prizeKey, kind, matches, revealed, result, leagueId }) {
   const meta = PRIZE_META[prizeKey]
   const Icon = PRIZE_ICONS[prizeKey]
   if (!meta) return null
 
-  // Decide what to show: revealed result OR live computation
   let info
   if (revealed && result) {
     info = result
@@ -41,6 +41,15 @@ export default function PrizeCard({ prizeKey, kind, matches, revealed, result })
       <div className="prize-head">
         <div className="prize-ic"><Icon size={16} /></div>
         <div className="prize-title">{meta.label}</div>
+        {leagueId && (
+          <img
+            src={leagueLogoUrl(leagueId)}
+            alt=""
+            className="prize-league-logo"
+            width={20}
+            height={20}
+          />
+        )}
         {revealed && <div className="prize-stamp">Awarded</div>}
       </div>
       <div className="prize-leader">

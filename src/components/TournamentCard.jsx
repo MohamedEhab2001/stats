@@ -1,7 +1,7 @@
-import { BadgeIcon } from '../lib/badges.js'
+import LeagueLogo from './LeagueLogo.jsx'
 import {
   tournamentStatus, filterMatchesForTournament, standings,
-  progressFor, monthLabel
+  progressFor, matchesLeftFor, monthLabel
 } from '../lib/tournaments.js'
 
 const NAME = { mohamed: 'Mohamed', mohaned: 'Mohaned' }
@@ -12,6 +12,7 @@ export default function TournamentCard({ row, matches, onOpen }) {
   const eligible = filterMatchesForTournament(row, matches)
   const t = standings(eligible)
   const progress = progressFor(row, matches)
+  const leftLabel = matchesLeftFor(row, matches)
 
   let leaderText = '—'
   if (eligible.length) {
@@ -37,7 +38,7 @@ export default function TournamentCard({ row, matches, onOpen }) {
   return (
     <button type="button" className={`tournament-card status-${status} kind-${data.kind} ${data.revealed ? 'revealed' : ''}`} onClick={() => onOpen(row.key)}>
       <div className="tc-head">
-        <div className="tc-badge"><BadgeIcon badgeKey={data.badge_key} size={36} /></div>
+        <div className="tc-badge"><LeagueLogo leagueId={data.league_id} badgeKey={data.badge_key} size={36} /></div>
         <div className="tc-text">
           <div className="tc-name">{data.name}</div>
           <div className="tc-sub">{subtitle}</div>
@@ -47,7 +48,7 @@ export default function TournamentCard({ row, matches, onOpen }) {
       <div className="tc-progress">
         <div className="tc-progress-bar"><span style={{ width: `${fillPct}%` }} /></div>
         <div className="tc-progress-meta">
-          <span>{progress.label}</span>
+          <span>{progress.label}{leftLabel ? <span className="tc-left-label"> · {leftLabel}</span> : null}</span>
           <span>{leaderText}</span>
         </div>
       </div>

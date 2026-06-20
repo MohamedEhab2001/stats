@@ -9,22 +9,31 @@ const COLS = [
   { key: 'losses', label: 'L', fullLabel: 'Losses' }
 ]
 
-export default function LeagueTable({ matches }) {
+// bonuses = { mohamed: number, mohaned: number } — challenge bonus points
+export default function LeagueTable({ matches, bonuses }) {
   const t = standings(matches)
+  const hasBonuses = bonuses && (bonuses.mohamed > 0 || bonuses.mohaned > 0)
+  const players = ['mohamed', 'mohaned'].sort((a, b) => {
+    if (t[b].pIndex !== t[a].pIndex) return t[b].pIndex - t[a].pIndex
+    return t[b].wins - t[a].wins
+  })
   return (
     <div className="league-wrap">
       <table className="league-table">
         <thead>
           <tr>
+            <th className="league-rank">#</th>
             <th className="league-name">Player</th>
             {COLS.map(c => (
               <th key={c.key} className={c.accent ? 'accent' : ''} title={c.fullLabel}>{c.label}</th>
             ))}
+            {hasBonuses && <th className="bonus-col" title="Challenge bonus points">⚡</th>}
           </tr>
         </thead>
         <tbody>
-          {['mohamed','mohaned'].map(p => (
+          {players.map((p, i) => (
             <tr key={p} className={`row-${p}`}>
+              <td className="league-rank">{i + 1}</td>
               <td className="league-name">
                 <span className={`jersey ${p === 'mohamed' ? 'blue' : 'rose'}`} />
                 <span>{p === 'mohamed' ? 'Mohamed' : 'Mohaned'}</span>
@@ -44,6 +53,11 @@ export default function LeagueTable({ matches }) {
                   ].filter(Boolean).join(' ')}>{display}</td>
                 )
               })}
+              {hasBonuses && (
+                <td className={`bonus-col ${bonuses[p] > 0 ? 'bonus-earned' : ''}`}>
+                  {bonuses[p] > 0 ? `+${bonuses[p]}` : '–'}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -3,8 +3,9 @@ import { STAT_DEFS, STAT_MAX, EMPTY_STATS } from '../lib/stats.js'
 import { isoWeek } from '../lib/date.js'
 import { STAT_ICONS, CloseIcon, PlusIcon } from './Icons.jsx'
 import Slider from './Slider.jsx'
+import { DIFF_EMOJI, DIFF_LABEL } from '../lib/challenges.js'
 
-export default function AddMatchModal({ mode, initial, onClose, onSubmit }) {
+export default function AddMatchModal({ mode, initial, onClose, onSubmit, activeChallenge }) {
   const isEdit = mode === 'edit'
   const initialLogged = initial?.loggedBy || []
 
@@ -14,6 +15,10 @@ export default function AddMatchModal({ mode, initial, onClose, onSubmit }) {
   const [mohaned, setMohaned] = useState({ ...EMPTY_STATS(), ...(initial?.mohaned ?? {}) })
   const [mohamedActive, setMohamedActive] = useState(isEdit ? initialLogged.includes('mohamed') : true)
   const [mohanedActive, setMohanedActive] = useState(isEdit ? initialLogged.includes('mohaned') : true)
+
+  // Challenge completion state — pre-fill from existing match if editing
+  const [chalMohamed, setChalMohamed] = useState(initial?.challengeResult?.completions?.mohamed ?? false)
+  const [chalMohaned, setChalMohaned] = useState(initial?.challengeResult?.completions?.mohaned ?? false)
 
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose() }
@@ -26,6 +31,13 @@ export default function AddMatchModal({ mode, initial, onClose, onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!canSave) return
+    const challengeResult = activeChallenge?.id
+      ? {
+          challenge_id: activeChallenge.id,
+          points: activeChallenge.points,
+          completions: { mohamed: chalMohamed, mohaned: chalMohaned }
+        }
+      : (initial?.challengeResult || null)
     const next = {
       id: initial?.id ?? `m-${Date.now()}`,
       week,
@@ -36,7 +48,8 @@ export default function AddMatchModal({ mode, initial, onClose, onSubmit }) {
         ...initialLogged,
         ...(mohamedActive ? ['mohamed'] : []),
         ...(mohanedActive ? ['mohaned'] : [])
-      ])
+      ]),
+      challengeResult
     }
     onSubmit(next)
   }
@@ -78,6 +91,41 @@ export default function AddMatchModal({ mode, initial, onClose, onSubmit }) {
             isEdit={isEdit}
           />
         </div>
+
+        {activeChallenge && (
+          <div className="match-challenge-section">
+            <div className="mcs-header">
+              <span className={`mcs-diff-badge diff-${activeChallenge.difficulty}`}>
+                {DIFF_EMOJI[activeChallenge.difficulty]} {DIFF_LABEL[activeChallenge.difficulty]} · +{activeChallenge.points} pts
+              </span>
+              <span className="mcs-label">⚡ This week's challenge</span>
+            </div>
+            <div className="mcs-title">{activeChallenge.title}</div>
+            <div className="mcs-desc">{activeChallenge.description}</div>
+            <div className="mcs-checks">
+              <label className="mcs-check">
+                <input
+                  type="checkbox"
+                  checked={chalMohamed}
+                  onChange={e => setChalMohamed(e.target.checked)}
+                  disabled={!mohamedActive}
+                />
+                <span className={`jersey blue`} />
+                <span>Mohamed completed it</span>
+              </label>
+              <label className="mcs-check">
+                <input
+                  type="checkbox"
+                  checked={chalMohaned}
+                  onChange={e => setChalMohaned(e.target.checked)}
+                  disabled={!mohanedActive}
+                />
+                <span className={`jersey rose`} />
+                <span>Mohaned completed it</span>
+              </label>
+            </div>
+          </div>
+        )}
 
         <div className="form-foot">
           <div className="meta">

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+﻿import { useEffect, useMemo, useRef, useState } from 'react'
 import PlayerCards, { StatGrid } from './components/Scoreboard.jsx'
 import TrendChart from './components/TrendChart.jsx'
 import MatchLog from './components/MatchLog.jsx'
@@ -8,22 +8,29 @@ import Explainer from './components/Explainer.jsx'
 import Toast from './components/Toast.jsx'
 import PIndexBoard from './components/PIndexBoard.jsx'
 import TournamentsPage from './components/TournamentsPage.jsx'
-import ScoutingReport from './components/ScoutingReport.jsx'
+import ScoutingReport, { TierLadder } from './components/ScoutingReport.jsx'
+import WeeklyChallengeCard from './components/WeeklyChallengeCard.jsx'
+import ChallengeRevealCard from './components/ChallengeRevealCard.jsx'
+import MOTMRevealModal from './components/MOTMRevealModal.jsx'
 import {
   EMPTY_STATS,
   sumTotals, computeRecord, computeForm, currentStreak,
-  perStatRecord, findBests, diffBests
+  perStatRecord, findBests, diffBests, isComplete
 } from './lib/stats.js'
+import { computeMOTM } from './lib/motm.js'
 import {
   fetchAll, upsertMatch, deleteMatch, subscribe, bulkInsert,
   fetchTournamentStates, subscribeTournaments,
-  createCustomTournament, markRevealed, ensureCalendarRowsForDates
+  createCustomTournament, markRevealed, ensureCalendarRowsForDates,
+  backfillTournamentLeagues, fetchActiveChallenge, setActiveChallenge,
+  fetchAvatars, setAvatar, deleteTournament
 } from './lib/api.js'
+import { findChallenge } from './lib/challenges.js'
 import {
   computePrizes, filterMatchesForTournament, tournamentStatus
 } from './lib/tournaments.js'
 import { isConfigured } from './lib/supabase.js'
-import { PlusIcon, TrendIcon, TrophyIcon, CalendarIcon, InfoIcon, LogoutIcon, ZapIcon } from './components/Icons.jsx'
+import { PlusIcon, TrendIcon, TrophyIcon, CalendarIcon, InfoIcon, LogoutIcon, ZapIcon, StarIcon } from './components/Icons.jsx'
 
 const AUTH_KEY = 'mvm.auth'
 const LEGACY_KEY = 'mvm.matches.v2'
@@ -57,6 +64,9 @@ function Board({ onLogout }) {
   const [errorMsg, setErrorMsg] = useState(null)
   const [modal, setModal] = useState(null)
   const [toast, setToast] = useState(null)
+  const [motmMatch, setMotmMatch] = useState(null)
+  const [avatars, setAvatars] = useState({ mohamed: null, mohaned: null })
+  const [activeChallengeMeta, setActiveChallengeMeta] = useState(null) // { challenge_id, set_at }
   const [tab, setTab] = useState(() => {
     try { return localStorage.getItem(TAB_KEY) || 'overview' } catch { return 'overview' }
   })
@@ -143,7 +153,15 @@ function Board({ onLogout }) {
     })
 
     refreshTournaments()
-    const unsubscribeT = subscribeTournaments(refreshTournaments)
+    backfillTournamentLeagues().then(() => { if (!cancelled) refreshTournaments() }).catch(() => {})
+    const unsubscribeT = subscribeTournaments(() => {
+      refreshTournaments()
+      // Refresh active challenge when tournament_state changes (challenge may have been updated)
+      fetchActiveChallenge().then(meta => { if (!cancelled) setActiveChallengeMeta(meta) }).catch(() => {})
+    })
+
+    fetchActiveChallenge().then(meta => { if (!cancelled) setActiveChallengeMeta(meta) }).catch(() => {})
+    fetchAvatars().then(av => { if (!cancelled) setAvatars(av) }).catch(() => {})
 
     return () => { cancelled = true; unsubscribe(); unsubscribeT() }
   }, [])
@@ -179,6 +197,11 @@ function Board({ onLogout }) {
   const openEdit = (match) => setModal({ mode: 'edit', initial: match })
   const openAddSide = (match, player) => setModal({ mode: 'edit', initial: match, focus: player })
 
+  const handleSetAvatar = async (player, dataUrl) => {
+    setAvatars(prev => ({ ...prev, [player]: dataUrl }))
+    try { await setAvatar(player, dataUrl) } catch (e) { console.error('save avatar failed', e) }
+  }
+
   const handleUpsert = async (m) => {
     const prev = matchesRef.current
     const prevBests = {
@@ -186,6 +209,7 @@ function Board({ onLogout }) {
       mohaned: findBests(prev, 'mohaned')
     }
     const idx = prev.findIndex(x => x.id === m.id)
+    const wasComplete = idx >= 0 ? isComplete(prev[idx]) : false
     const next = idx >= 0 ? prev.map(x => x.id === m.id ? m : x) : [m, ...prev]
     const sorted = [...next].sort((a, b) => b.week - a.week)
     setMatches(sorted)
@@ -194,9 +218,14 @@ function Board({ onLogout }) {
       await upsertMatch(m)
     } catch (e) {
       console.error('upsert failed', e)
-      setErrorMsg('Couldn’t save to server. Reverted.')
+      setErrorMsg("Couldn't save to server. Reverted.")
       setMatches(prev)
       return
+    }
+
+    // Show MOTM reveal when a match first becomes complete (both sides logged)
+    if (isComplete(m) && !wasComplete) {
+      setMotmMatch(m)
     }
 
     const newBests = {
@@ -235,9 +264,21 @@ function Board({ onLogout }) {
       setTournaments(prev => prev.map(r => r.key === key ? { ...r, data: result.current } : r))
     } catch (e) {
       console.error('reveal failed', e)
-      setErrorMsg('Couldn’t reveal the tournament. Try again.')
+      setErrorMsg("Couldn't reveal the tournament. Try again.")
     } finally {
       setRevealingKey(null)
+    }
+  }
+
+  const handleDeleteTournament = async (key) => {
+    setTournaments(prev => prev.filter(r => r.key !== key))
+    try {
+      await deleteTournament(key)
+    } catch (e) {
+      console.error('delete tournament failed', e)
+      setErrorMsg("Couldn't delete tournament. Try again.")
+      const t = await fetchTournamentStates().catch(() => null)
+      if (t) setTournaments(t)
     }
   }
 
@@ -248,7 +289,7 @@ function Board({ onLogout }) {
       await deleteMatch(id)
     } catch (e) {
       console.error('delete failed', e)
-      setErrorMsg('Couldn’t delete on server. Reverted.')
+      setErrorMsg("Couldn't delete on server. Reverted.")
       setMatches(prev)
     }
   }
@@ -296,6 +337,8 @@ function Board({ onLogout }) {
         latestWeek={latestWeek}
         form={form}
         streak={streak}
+        avatars={avatars}
+        onSetAvatar={handleSetAvatar}
       />
 
       <nav className="tab-nav" role="tablist" aria-label="Sections">
@@ -308,23 +351,16 @@ function Board({ onLogout }) {
         <TabButton id="tournaments" active={tab} onClick={setTab} icon={<TrophyIcon size={14} />}>
           Tournaments
         </TabButton>
+        <TabButton id="challenges" active={tab} onClick={setTab} icon={<StarIcon size={14} />}>
+          Challenges
+        </TabButton>
+        <TabButton id="scouting" active={tab} onClick={setTab} icon={<ZapIcon size={14} />}>
+          Scouting
+        </TabButton>
       </nav>
 
       {tab === 'overview' && (
         <div className="tab-page" role="tabpanel" aria-labelledby="overview">
-          <section className="section">
-            <div className="section-head">
-              <div className="left">
-                <div className="icon-wrap"><ZapIcon size={16} /></div>
-                <div>
-                  <h2>Scouting report</h2>
-                  <div className="sub">Your level if your stats were scaled to real football · tier + market value</div>
-                </div>
-              </div>
-            </div>
-            <ScoutingReport matches={matches} />
-          </section>
-
           <section className="section">
             <div className="section-head">
               <div className="left">
@@ -420,7 +456,80 @@ function Board({ onLogout }) {
             onCreate={handleCreateTournament}
             onReveal={handleReveal}
             revealingKey={revealingKey}
+            onDeleteTournament={handleDeleteTournament}
           />
+        </div>
+      )}
+
+      {tab === 'challenges' && (
+        <div className="tab-page" role="tabpanel" aria-labelledby="challenges">
+          <section className="section">
+            <div className="section-head">
+              <div className="left">
+                <div className="icon-wrap"><StarIcon size={16} /></div>
+                <div>
+                  <h2>Weekly Challenge</h2>
+                  <div className="sub">Set one challenge per week · earn bonus points in every tournament's league table</div>
+                </div>
+              </div>
+              <button className="add-btn" onClick={openNew}>
+                <PlusIcon size={14} /> Log this week
+              </button>
+            </div>
+            <ChallengeRevealCard
+              activeChallenge={activeChallengeMeta}
+              matches={matches}
+              onChallengeChange={(meta) => setActiveChallengeMeta(meta)}
+            />
+            <WeeklyChallengeCard
+              activeChallenge={activeChallengeMeta}
+              matches={matches}
+              onChallengeChange={(meta) => setActiveChallengeMeta(meta)}
+            />
+          </section>
+
+          <section className="section">
+            <div className="section-head">
+              <div className="left">
+                <div className="icon-wrap"><CalendarIcon size={16} /></div>
+                <div>
+                  <h2>Challenge history</h2>
+                  <div className="sub">All matches where a challenge was active</div>
+                </div>
+              </div>
+            </div>
+            <ChallengeHistory matches={matches} />
+          </section>
+        </div>
+      )}
+
+      {tab === 'scouting' && (
+        <div className="tab-page" role="tabpanel" aria-labelledby="scouting">
+          <section className="section">
+            <div className="section-head">
+              <div className="left">
+                <div className="icon-wrap"><ZapIcon size={16} /></div>
+                <div>
+                  <h2>Scouting report</h2>
+                  <div className="sub">Your level if your stats were scaled to real football · tier + market value</div>
+                </div>
+              </div>
+            </div>
+            <ScoutingReport matches={matches} />
+          </section>
+
+          <section className="section">
+            <div className="section-head">
+              <div className="left">
+                <div className="icon-wrap"><TrendIcon size={16} /></div>
+                <div>
+                  <h2>Tier road map</h2>
+                  <div className="sub">All tiers from lowest to highest · see where you stand and what's next</div>
+                </div>
+              </div>
+            </div>
+            <TierLadder />
+          </section>
         </div>
       )}
 
@@ -435,11 +544,65 @@ function Board({ onLogout }) {
           initial={modal.initial}
           onClose={() => setModal(null)}
           onSubmit={(match) => { handleUpsert(match); setModal(null) }}
+          activeChallenge={activeChallengeMeta?.challenge_id
+            ? findChallenge(activeChallengeMeta.challenge_id)
+            : null}
         />
       )}
 
       <Toast toast={toast} onDismiss={() => setToast(null)} />
+
+      {motmMatch && (
+        <MOTMRevealModal
+          match={motmMatch}
+          onClose={() => setMotmMatch(null)}
+          avatars={avatars}
+        />
+      )}
     </div>
+  )
+}
+
+function ChallengeHistory({ matches }) {
+  const withChallenge = matches
+    .filter(m => m.challengeResult?.challenge_id)
+    .slice()
+    .sort((a, b) => b.week - a.week)
+
+  if (!withChallenge.length) {
+    return <div className="empty">No challenge results yet. Log a match while a challenge is active.</div>
+  }
+
+  return (
+    <ul className="challenge-history-list">
+      {withChallenge.map(m => {
+        const cr = m.challengeResult
+        const challenge = findChallenge(cr.challenge_id)
+        const title = challenge?.title || cr.challenge_id
+        return (
+          <li key={m.id} className="chl-row">
+            <span className="chl-week">W{m.week}</span>
+            <span className="chl-date">{m.date}</span>
+            <div className="chl-info">
+              <span className={`chl-diff diff-${challenge?.difficulty || 'easy'}`}>
+                {challenge?.difficulty ? { easy: '🟢', medium: '🟡', hard: '🔴' }[challenge.difficulty] : '⚡'}
+              </span>
+              <span className="chl-title">{title}</span>
+            </div>
+            <div className="chl-completions">
+              <span className={`chl-player ${cr.completions?.mohamed ? 'done' : 'missed'}`}>
+                <span className="jersey blue" />
+                {cr.completions?.mohamed ? `+${cr.points}` : '–'}
+              </span>
+              <span className={`chl-player ${cr.completions?.mohaned ? 'done' : 'missed'}`}>
+                <span className="jersey rose" />
+                {cr.completions?.mohaned ? `+${cr.points}` : '–'}
+              </span>
+            </div>
+          </li>
+        )
+      })}
+    </ul>
   )
 }
 
