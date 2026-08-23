@@ -141,7 +141,7 @@ export async function GET(
               <div style={{ display: 'flex', width: 64, height: 4, borderRadius: 999, backgroundColor: colors.rail }} />
               {nicknameRender.kind === 'image' ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={nicknameRender.src} width={680} height={80} />
+                <img src={nicknameRender.src} width={680} height={80} alt={card.nickname} />
               ) : (
                 <div
                   style={{
@@ -157,7 +157,7 @@ export async function GET(
               )}
               {spaceNameRender.kind === 'image' ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={spaceNameRender.src} width={680} height={40} />
+                <img src={spaceNameRender.src} width={680} height={40} alt={space.name} />
               ) : (
                 <div style={{ display: 'flex', fontSize: 22, color: '#a1a1aa' }}>{space.name}</div>
               )}
