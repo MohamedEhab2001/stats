@@ -1,0 +1,306 @@
+{
+  "nav": {
+    "overview": "Overview",
+    "standings": "Standings",
+    "compare": "Compare",
+    "tournaments": "Tournaments",
+    "challenges": "Challenges",
+    "scouting": "Scouting",
+    "trophyCabinet": "Trophy Cabinet",
+    "settings": "Settings"
+  },
+  "space": {
+    "switcherLabel": "Switch space",
+    "onboarding": {
+      "title": "Create your first Space",
+      "body": "A Space is where you and your friends track head-to-head stats.",
+      "cta": "Create a Space"
+    },
+    "list": {
+      "title": "Your Spaces",
+      "createAnother": "+ Create another Space"
+    },
+    "role": {
+      "owner": "Space Manager",
+      "member": "Space Member"
+    },
+    "new": {
+      "title": "Create a Space",
+      "nameLabel": "Space name",
+      "namePlaceholder": "e.g. Mohamed vs Mohaned",
+      "submit": "Create Space",
+      "submitting": "Creating...",
+      "errorGeneric": "Could not create space",
+      "secondMember": {
+        "heading": "Add your first member",
+        "optionalHint": "Optional — you can always add members later from Settings.",
+        "emailLabel": "Their email",
+        "emailPlaceholder": "friend@example.com",
+        "nicknameLabel": "Their nickname",
+        "nicknamePlaceholder": "e.g. Mohaned",
+        "nicknameRequired": "Add a nickname for them, or leave the email blank to skip this step.",
+        "successPrefix": "Your Space is ready. Here's how your new member logs in:",
+        "loginHint": "Give them this to log in: {{email}} + the code below.",
+        "copyCode": "Copy code",
+        "copied": "Copied!",
+        "billableNotice": "This is beyond your 2 included seats — it'll show up as an extra seat once billing is live.",
+        "continue": "Continue to your Space"
+      }
+    }
+  },
+  "overview": {
+    "logButton": "Log this week",
+    "tiles": {
+      "members": "Members",
+      "weeksLogged": "Weeks logged",
+      "leader": "League leader",
+      "leaderNone": "No matches yet",
+      "yourCard": "Your OVR",
+      "yourCardCta": "View your card →"
+    },
+    "standingsHeading": "Standings",
+    "noStats": "No stats logged yet.",
+    "recentWeeksHeading": "Recent weeks",
+    "noWeeksLogged": "Nobody has logged a week yet.",
+    "loggedCount": "{{count}} logged",
+    "motmLabel": "MOTM",
+    "motmTied": "Tied"
+  },
+  "log": {
+    "title": "Log this week",
+    "dateLabel": "Date",
+    "noStatDefs": "This space has no enabled stat attributes yet.",
+    "challengeCheckboxLabel": "I completed this week's challenge",
+    "submit": "Save",
+    "submitting": "Saving...",
+    "cancel": "Cancel",
+    "maxHint": "up to {{max}}",
+    "errorWeek": "Could not create this week",
+    "errorEntry": "Could not save your stats"
+  },
+  "standings": {
+    "title": "Standings",
+    "noStats": "No stats logged yet.",
+    "window": {
+      "all": "All time",
+      "year": "This year",
+      "month": "This month"
+    },
+    "columns": {
+      "rank": "#",
+      "member": "Member",
+      "pIndex": "P-Index",
+      "played": "Played"
+    }
+  },
+  "compare": {
+    "title": "Compare",
+    "selectMemberPlaceholder": "Select member",
+    "vs": "vs",
+    "pickTwoDifferent": "Pick two different members.",
+    "perStatLeaderHeading": "Per-stat leader ({{count}} shared weeks)",
+    "noSharedWeeks": "No weeks where both members have logged yet.",
+    "goalsFor": "for",
+    "goalsAgainst": "against",
+    "columns": {
+      "stat": "Stat",
+      "ties": "Ties"
+    }
+  },
+  "tournaments": {
+    "title": "Tournaments",
+    "customHeading": "Custom tournament",
+    "blockingNamed": "\"{{name}}\" is already live or upcoming — finish or reveal it before creating another.",
+    "blockingGeneric": "A custom tournament is already live or upcoming — finish or reveal it before creating another.",
+    "startsOn": "Starts {{date}}",
+    "kind": {
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "custom": "Custom"
+    },
+    "status": {
+      "upcoming": "Upcoming",
+      "live": "Live",
+      "finished": "Finished"
+    },
+    "form": {
+      "nameLabel": "Name (optional)",
+      "namePlaceholder": "Random name",
+      "startDateLabel": "Start date",
+      "matchesRequiredLabel": "Matches required",
+      "submit": "Create tournament",
+      "submitting": "Creating...",
+      "errorGeneric": "Could not create tournament"
+    },
+    "reveal": {
+      "button": "Reveal prizes",
+      "revealing": "Revealing...",
+      "errorGeneric": "Could not reveal prizes"
+    },
+    "edit": {
+      "button": "Edit",
+      "cancel": "Cancel",
+      "submit": "Save changes",
+      "submitting": "Saving...",
+      "errorGeneric": "Could not update this tournament"
+    },
+    "delete": {
+      "button": "Delete",
+      "confirm": "Delete for good?",
+      "deleting": "Deleting...",
+      "errorGeneric": "Could not delete this tournament"
+    },
+    "detail": {
+      "back": "Back to tournaments",
+      "notRevealedYet": "Prizes haven't been revealed yet."
+    }
+  },
+  "challenges": {
+    "title": "Challenges",
+    "thisWeekHeading": "This week's challenge",
+    "noActive": "No active challenge yet.",
+    "historyHeading": "History",
+    "noHistory": "No completed challenges logged yet.",
+    "nobodyCompleted": "Nobody completed it",
+    "pointsSuffix": "{{points}} pts",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "picker": {
+      "placeholder": "Pick a challenge…",
+      "submit": "Set active challenge",
+      "submitting": "Saving...",
+      "errorGeneric": "Could not set challenge"
+    }
+  },
+  "scouting": {
+    "title": "Scouting",
+    "noMembers": "No members to scout yet.",
+    "matchesNeeded_one": "{{count}} more match needed to be scouted.",
+    "matchesNeeded_other": "{{count}} more matches needed to be scouted.",
+    "scoreLine": "Score {{score}} · {{value}}",
+    "nextTierLine": "{{points}} pts to reach {{tier}}",
+    "tierRoadmapHeading": "Tier road map"
+  },
+  "trophyCabinet": {
+    "title": "Trophy Cabinet",
+    "noMembers": "No members yet.",
+    "noneYet": "None yet."
+  },
+  "fifaCard": {
+    "heading": "FIFA Card",
+    "xgLabel": "xG",
+    "tier": {
+      "clinical": "Clinical",
+      "normal": "Normal",
+      "wasteful": "Wasteful"
+    },
+    "provisionalNote_one": "Early days — {{count}} more logged week for a confident rating.",
+    "provisionalNote_other": "Early days — {{count}} more logged weeks for a confident rating.",
+    "share": {
+      "button": "Share card",
+      "working": "Preparing...",
+      "download": "Card downloaded",
+      "shared": "Shared",
+      "errorGeneric": "Could not generate the card image"
+    }
+  },
+  "plan": {
+    "free": "Free",
+    "pro": "Pro"
+  },
+  "settings": {
+    "title": "Settings",
+    "spaceNameHeading": "Space name",
+    "planHeading": "Plan",
+    "planLine": "{{tier}} plan · {{active}} / {{cap}} seats used",
+    "manageInvites": "Manage invites →",
+    "statAttributesLink": "Stat attributes →",
+    "billingLink": "Billing →",
+    "rename": {
+      "submit": "Save",
+      "submitting": "Saving...",
+      "saved": "Saved",
+      "errorGeneric": "Could not rename space"
+    },
+    "invites": {
+      "title": "Members",
+      "seatsUsed": "{{active}} of {{cap}} included seats used",
+      "spaceFull": "This space is full — it can't take any more members.",
+      "nextSeatPrice": "The next seat is {{price}} EGP/month.",
+      "ownerOnly": "Only the Space Manager can add members.",
+      "noInvites": "No members yet.",
+      "status": {
+        "pending": "Pending",
+        "redeemed": "Redeemed",
+        "revoked": "Revoked",
+        "expired": "Expired"
+      },
+      "create": {
+        "emailPlaceholder": "Their email",
+        "nicknamePlaceholder": "Their nickname",
+        "submit": "Add member",
+        "submitting": "Adding...",
+        "errorGeneric": "Could not add this member",
+        "seatLimitBanner": "This space is at its seat limit.",
+        "upgradeMore": "Upgrade to add more members →",
+        "upgradeShort": "Upgrade →",
+        "successPrefix": "Give them this to log in:",
+        "billableNotice": "This is an extra seat — {{price}} EGP/month once billing is live."
+      },
+      "row": {
+        "copy": "Copy link",
+        "copied": "Copied!",
+        "copyCode": "Copy code",
+        "revoke": "Revoke",
+        "regenerate": "Regenerate code",
+        "regenerating": "Regenerating...",
+        "regenerateError": "Could not regenerate this code"
+      }
+    },
+    "statAttributes": {
+      "title": "Stat attributes",
+      "description": "Disabling an attribute only hides it from new entries — past weeks keep whatever was logged at the time.",
+      "noneYet": "No stat attributes yet.",
+      "custom": "Custom",
+      "builtIn": "Built-in",
+      "enabledLabel": "Enabled",
+      "delete": "Delete",
+      "addCta": "+ Add custom attribute",
+      "form": {
+        "keyLabel": "Key",
+        "keyPlaceholder": "e.g. saves",
+        "labelLabel": "Label",
+        "labelPlaceholder": "e.g. Saves",
+        "shortLabel": "Short label",
+        "shortPlaceholder": "e.g. SV",
+        "maxLabel": "Max",
+        "weightLabel": "Weight",
+        "higherIsBetterLabel": "Higher is better",
+        "blurbLabel": "Blurb (optional)",
+        "submit": "Add attribute",
+        "submitting": "Adding...",
+        "cancel": "Cancel"
+      },
+      "errors": {
+        "toggle": "Could not update this attribute",
+        "delete": "Could not remove this attribute",
+        "add": "Could not add this attribute"
+      }
+    },
+    "billing": {
+      "title": "Billing",
+      "currentPlan": "Current plan",
+      "seatsUsed": "{{active}} of {{cap}} seats used",
+      "needMoreSeatsHeading": "Need more seats?",
+      "proDescription": "Pro adds seats on top of the free plan's 2 members, billed per extra seat via EasyKash — no recurring subscription.",
+      "ownerOnly": "Only the space owner can manage billing.",
+      "upgrade": "Upgrade",
+      "upgrading": "Contacting billing...",
+      "redirecting": "Redirecting to checkout...",
+      "errorGeneric": "Could not start checkout"
+    }
+  }
+}

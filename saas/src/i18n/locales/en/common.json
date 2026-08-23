@@ -1,0 +1,21 @@
+{
+  "brand": {
+    "name": "statsDor",
+    "tagline": "every match, every stat, one scoreboard."
+  },
+  "nav": {
+    "pricing": "Pricing",
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out"
+  },
+  "locale": {
+    "switchLabel": "Language",
+    "ar": "AR",
+    "en": "EN"
+  },
+  "meta": {
+    "title": "statsDor — Track your FIFA rivalry",
+    "description": "statsDor turns FIFA nights with friends into a real stats league: head-to-head comparisons, group standings, tournaments with prizes, weekly challenges, Man of the Match, and scouting reports."
+  }
+}

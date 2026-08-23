@@ -1,0 +1,314 @@
+{
+  "nav": {
+    "overview": "نظرة عامة",
+    "standings": "الترتيب",
+    "compare": "مواجهة",
+    "tournaments": "البطولات",
+    "challenges": "التحديات",
+    "scouting": "الكشف",
+    "trophyCabinet": "خزانة الكؤوس",
+    "settings": "الإعدادات"
+  },
+  "space": {
+    "switcherLabel": "بدّل المساحة",
+    "onboarding": {
+      "title": "أنشئ مساحتك الأولى",
+      "body": "المساحة هي المكان اللي إنت وصحابك بتتابعوا فيه إحصائياتكم ومواجهاتكم.",
+      "cta": "أنشئ مساحة"
+    },
+    "list": {
+      "title": "مساحاتك",
+      "createAnother": "+ أنشئ مساحة تانية"
+    },
+    "role": {
+      "owner": "مدير المساحة",
+      "member": "عضو المساحة"
+    },
+    "new": {
+      "title": "أنشئ مساحة",
+      "nameLabel": "اسم المساحة",
+      "namePlaceholder": "زي: محمد ضد مهند",
+      "submit": "أنشئ المساحة",
+      "submitting": "جاري الإنشاء...",
+      "errorGeneric": "تعذّر إنشاء المساحة",
+      "secondMember": {
+        "heading": "ضيف أول عضو معاك",
+        "optionalHint": "الخطوة دي اختيارية — تقدر تضيف أعضاء بعدين من الإعدادات وقت ما تحب.",
+        "emailLabel": "إيميله",
+        "emailPlaceholder": "friend@example.com",
+        "nicknameLabel": "اسمه في المساحة",
+        "nicknamePlaceholder": "زي: مهند",
+        "nicknameRequired": "ضيف اسم له في المساحة، أو سيب خانة الإيميل فاضية عشان تتخطى الخطوة دي.",
+        "successPrefix": "مساحتك جاهزة. كده هو هيسجّل دخوله:",
+        "loginHint": "إداه ده عشان يدخل بيه: {{email}} + الكود اللي تحت.",
+        "copyCode": "انسخ الكود",
+        "copied": "اتنسخ!",
+        "billableNotice": "ده زيادة عن المقعدين المجانيين — هيتحسب مقعد إضافي أول ما الفوترة تشتغل.",
+        "continue": "كمّل لمساحتك"
+      }
+    }
+  },
+  "overview": {
+    "logButton": "سجّل أسبوعك",
+    "tiles": {
+      "members": "الأعضاء",
+      "weeksLogged": "أسابيع مسجّلة",
+      "leader": "صدارة الترتيب",
+      "leaderNone": "لسه مفيش مباريات",
+      "yourCard": "تقييمك (OVR)",
+      "yourCardCta": "شوف بطاقتك ←"
+    },
+    "standingsHeading": "الترتيب",
+    "noStats": "لسه محدش سجّل أي إحصائيات.",
+    "recentWeeksHeading": "آخر الأسابيع",
+    "noWeeksLogged": "لسه محدش سجّل أسبوع.",
+    "loggedCount": "{{count}} سجّلوا",
+    "motmLabel": "نجم المباراة",
+    "motmTied": "تعادل"
+  },
+  "log": {
+    "title": "سجّل أسبوعك",
+    "dateLabel": "التاريخ",
+    "noStatDefs": "المساحة دي لسه معندهاش إحصائيات مفعّلة.",
+    "challengeCheckboxLabel": "خلّصت تحدي الأسبوع ده",
+    "submit": "حفظ",
+    "submitting": "جاري الحفظ...",
+    "cancel": "إلغاء",
+    "maxHint": "لحد {{max}}",
+    "errorWeek": "تعذّر إنشاء هذا الأسبوع",
+    "errorEntry": "تعذّر حفظ إحصائياتك"
+  },
+  "standings": {
+    "title": "الترتيب",
+    "noStats": "لسه محدش سجّل أي إحصائيات.",
+    "window": {
+      "all": "كل الأوقات",
+      "year": "السنة دي",
+      "month": "الشهر ده"
+    },
+    "columns": {
+      "rank": "#",
+      "member": "العضو",
+      "pIndex": "P-Index",
+      "played": "لعب"
+    }
+  },
+  "compare": {
+    "title": "مواجهة",
+    "selectMemberPlaceholder": "اختار عضو",
+    "vs": "ضد",
+    "pickTwoDifferent": "اختار عضوين مختلفين.",
+    "perStatLeaderHeading": "الأفضل في كل إحصائية ({{count}} أسبوع مشترك)",
+    "noSharedWeeks": "لسه معندهومش أي أسبوع مشترك اتسجل فيه الاتنين.",
+    "goalsFor": "له",
+    "goalsAgainst": "عليه",
+    "columns": {
+      "stat": "الإحصائية",
+      "ties": "تعادل"
+    }
+  },
+  "tournaments": {
+    "title": "البطولات",
+    "customHeading": "بطولة خاصة",
+    "blockingNamed": "بطولة \"{{name}}\" لسه شغالة أو لسه ما بدأتش — خلّصها أو وضّح نتيجتها الأول قبل ما تعمل بطولة خاصة تانية.",
+    "blockingGeneric": "في بطولة خاصة لسه شغالة أو لسه ما بدأتش — خلّصها أو وضّح نتيجتها الأول قبل ما تعمل بطولة خاصة تانية.",
+    "startsOn": "تبدأ {{date}}",
+    "kind": {
+      "monthly": "شهرية",
+      "yearly": "سنوية",
+      "custom": "خاصة"
+    },
+    "status": {
+      "upcoming": "لسه ما بدأتش",
+      "live": "شغالة",
+      "finished": "خلصت"
+    },
+    "form": {
+      "nameLabel": "الاسم (اختياري)",
+      "namePlaceholder": "اسم عشوائي",
+      "startDateLabel": "تاريخ البداية",
+      "matchesRequiredLabel": "عدد المباريات المطلوبة",
+      "submit": "أنشئ البطولة",
+      "submitting": "جاري الإنشاء...",
+      "errorGeneric": "تعذّر إنشاء البطولة"
+    },
+    "reveal": {
+      "button": "وضّح الجوايز",
+      "revealing": "جاري التوضيح...",
+      "errorGeneric": "تعذّر توضيح الجوايز"
+    },
+    "edit": {
+      "button": "تعديل",
+      "cancel": "إلغاء",
+      "submit": "احفظ التعديلات",
+      "submitting": "جاري الحفظ...",
+      "errorGeneric": "تعذّر تعديل البطولة"
+    },
+    "delete": {
+      "button": "حذف",
+      "confirm": "تأكيد الحذف نهائيًا؟",
+      "deleting": "جاري الحذف...",
+      "errorGeneric": "تعذّر حذف البطولة"
+    },
+    "detail": {
+      "back": "رجوع للبطولات",
+      "notRevealedYet": "الجوايز لسه ماتوضّحتش."
+    }
+  },
+  "challenges": {
+    "title": "التحديات",
+    "thisWeekHeading": "تحدي الأسبوع ده",
+    "noActive": "لسه معندناش تحدي شغال.",
+    "historyHeading": "السجل",
+    "noHistory": "لسه محدش خلّص أي تحدي.",
+    "nobodyCompleted": "محدش خلّصه",
+    "pointsSuffix": "{{points}} نقطة",
+    "difficulty": {
+      "easy": "سهل",
+      "medium": "متوسط",
+      "hard": "صعب"
+    },
+    "picker": {
+      "placeholder": "اختار تحدي…",
+      "submit": "فعّل التحدي",
+      "submitting": "جاري الحفظ...",
+      "errorGeneric": "تعذّر تفعيل التحدي"
+    }
+  },
+  "scouting": {
+    "title": "الكشف",
+    "noMembers": "لسه معندناش حد نكشف عليه.",
+    "matchesNeeded_zero": "لسه ما لعبتش أي ماتش عشان تتكشف.",
+    "matchesNeeded_one": "محتاج ماتش واحد كمان عشان تتكشف.",
+    "matchesNeeded_two": "محتاج ماتشين كمان عشان تتكشف.",
+    "matchesNeeded_few": "محتاج {{count}} ماتشات كمان عشان تتكشف.",
+    "matchesNeeded_many": "محتاج {{count}} ماتش كمان عشان تتكشف.",
+    "matchesNeeded_other": "محتاج {{count}} ماتش كمان عشان تتكشف.",
+    "scoreLine": "التقييم {{score}} · {{value}}",
+    "nextTierLine": "{{points}} نقطة عشان توصل لـ {{tier}}",
+    "tierRoadmapHeading": "خريطة الفئات"
+  },
+  "trophyCabinet": {
+    "title": "خزانة الكؤوس",
+    "noMembers": "لسه معندناش أعضاء.",
+    "noneYet": "لسه معندوش."
+  },
+  "fifaCard": {
+    "heading": "بطاقة اللاعب",
+    "xgLabel": "xG",
+    "tier": {
+      "clinical": "قناص",
+      "normal": "عادي",
+      "wasteful": "مهدر فرص"
+    },
+    "provisionalNote_zero": "لسه بدري على تقييم موثوق.",
+    "provisionalNote_one": "لسه بدري — محتاج تسجّل أسبوع واحد كمان عشان تقييمك يبقى موثوق.",
+    "provisionalNote_two": "لسه بدري — محتاج تسجّل أسبوعين كمان عشان تقييمك يبقى موثوق.",
+    "provisionalNote_few": "لسه بدري — محتاج تسجّل {{count}} أسابيع كمان عشان تقييمك يبقى موثوق.",
+    "provisionalNote_many": "لسه بدري — محتاج تسجّل {{count}} أسبوع كمان عشان تقييمك يبقى موثوق.",
+    "provisionalNote_other": "لسه بدري — محتاج تسجّل {{count}} أسبوع كمان عشان تقييمك يبقى موثوق.",
+    "share": {
+      "button": "شارك البطاقة",
+      "working": "جاري التجهيز...",
+      "download": "اتحملت البطاقة",
+      "shared": "تمت المشاركة",
+      "errorGeneric": "تعذّر إنشاء صورة البطاقة"
+    }
+  },
+  "plan": {
+    "free": "مجانية",
+    "pro": "Pro"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "spaceNameHeading": "اسم المساحة",
+    "planHeading": "الخطة",
+    "planLine": "خطة {{tier}} · {{active}} / {{cap}} مقعد مستخدم",
+    "manageInvites": "إدارة الدعوات ←",
+    "statAttributesLink": "الإحصائيات ←",
+    "billingLink": "الفوترة ←",
+    "rename": {
+      "submit": "حفظ",
+      "submitting": "جاري الحفظ...",
+      "saved": "تم الحفظ",
+      "errorGeneric": "تعذّر تغيير اسم المساحة"
+    },
+    "invites": {
+      "title": "الأعضاء",
+      "seatsUsed": "{{active}} من {{cap}} مقعد مجاني مستخدم",
+      "spaceFull": "المساحة دي وصلت لأقصى عدد أعضاء — مينفعش تضيف حد جديد.",
+      "nextSeatPrice": "المقعد الجاي هيتحاسب بـ {{price}} جنيه في الشهر.",
+      "ownerOnly": "مدير المساحة بس هو اللي يقدر يضيف أعضاء.",
+      "noInvites": "لسه معندناش أعضاء.",
+      "status": {
+        "pending": "قيد الانتظار",
+        "redeemed": "اتستخدمت",
+        "revoked": "اتلغت",
+        "expired": "انتهت"
+      },
+      "create": {
+        "emailPlaceholder": "إيميله",
+        "nicknamePlaceholder": "اسمه في المساحة",
+        "submit": "ضيف عضو",
+        "submitting": "جاري الإضافة...",
+        "errorGeneric": "تعذّر إضافة العضو ده",
+        "seatLimitBanner": "المساحة دي وصلت لأقصى عدد مقاعد.",
+        "upgradeMore": "رقّي عشان تقدر تضيف أعضاء أكتر ←",
+        "upgradeShort": "رقّي ←",
+        "successPrefix": "إداه ده عشان يدخل بيه:",
+        "billableNotice": "ده مقعد إضافي — {{price}} جنيه في الشهر أول ما الفوترة تشتغل."
+      },
+      "row": {
+        "copy": "انسخ الرابط",
+        "copied": "اتنسخ!",
+        "copyCode": "انسخ الكود",
+        "revoke": "إلغاء",
+        "regenerate": "غيّر الكود",
+        "regenerating": "جاري التغيير...",
+        "regenerateError": "تعذّر تغيير الكود ده"
+      }
+    },
+    "statAttributes": {
+      "title": "الإحصائيات",
+      "description": "تعطيل أي إحصائية بيخفيها بس من التسجيلات الجديدة — الأسابيع اللي فاتت هتفضل زي ما اتسجلت.",
+      "noneYet": "لسه معندناش إحصائيات.",
+      "custom": "مخصصة",
+      "builtIn": "أساسية",
+      "enabledLabel": "مفعّلة",
+      "delete": "حذف",
+      "addCta": "+ ضيف إحصائية مخصصة",
+      "form": {
+        "keyLabel": "المفتاح",
+        "keyPlaceholder": "زي: saves",
+        "labelLabel": "الاسم",
+        "labelPlaceholder": "زي: تصديات",
+        "shortLabel": "الاسم المختصر",
+        "shortPlaceholder": "زي: SV",
+        "maxLabel": "الحد الأقصى",
+        "weightLabel": "الوزن",
+        "higherIsBetterLabel": "كل ما زاد، أحسن",
+        "blurbLabel": "وصف مختصر (اختياري)",
+        "submit": "ضيف الإحصائية",
+        "submitting": "جاري الإضافة...",
+        "cancel": "إلغاء"
+      },
+      "errors": {
+        "toggle": "تعذّر تحديث هذه الإحصائية",
+        "delete": "تعذّر حذف هذه الإحصائية",
+        "add": "تعذّر إضافة هذه الإحصائية"
+      }
+    },
+    "billing": {
+      "title": "الفوترة",
+      "currentPlan": "الخطة الحالية",
+      "seatsUsed": "{{active}} من {{cap}} مقعد مستخدم",
+      "needMoreSeatsHeading": "محتاج مقاعد أكتر؟",
+      "proDescription": "خطة Pro بتضيف مقاعد فوق الاتنين اللي في الخطة المجانية، بتتحاسب لكل مقعد إضافي عن طريق EasyKash — من غير اشتراك شهري.",
+      "ownerOnly": "مالك المساحة بس هو اللي يقدر يدير الفوترة.",
+      "upgrade": "رقّي",
+      "upgrading": "جاري التواصل مع الفوترة...",
+      "redirecting": "جاري التحويل لصفحة الدفع...",
+      "errorGeneric": "تعذّر بدء عملية الدفع"
+    }
+  }
+}

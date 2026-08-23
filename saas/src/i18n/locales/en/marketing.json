@@ -1,0 +1,93 @@
+{
+  "hero": {
+    "eyebrow": "Head-to-head stats, perfected",
+    "titleLine1": "Every match. Every stat.",
+    "titleLine2": "One scoreboard for the whole squad.",
+    "subtitle": "Create a private Space, invite your friends, and turn your FIFA nights into a real league — standings, tournaments, weekly challenges, and scouting reports included.",
+    "ctaPrimary": "Start your Space",
+    "ctaSecondary": "See pricing",
+    "note": "Free for you and one friend. No card required."
+  },
+  "features": {
+    "heading": "Built for the whole group chat",
+    "subtitle": "Everything the old spreadsheet argument needed — generalized from two players to your whole crew.",
+    "items": [
+      {
+        "n": "01",
+        "title": "Head-to-head comparison",
+        "body": "Pick any two members of your Space and get an instant rivalry breakdown — stat totals, best single week, tie-broken W/D/L, all-time bragging rights."
+      },
+      {
+        "n": "02",
+        "title": "Group-wide standings",
+        "body": "Every member ranked on a single weighted P-Index, computed from an all-play-all round robin each week — fair at 2 members, and just as fair at 10."
+      },
+      {
+        "n": "03",
+        "title": "Tournaments with real prizes",
+        "body": "Monthly, yearly, or one-off custom tournaments hand out a Golden Boot, Golden Vision, Golden Skills, Tournament Winner, and Player of the Month — with genuine multi-way ties when the numbers say so."
+      },
+      {
+        "n": "04",
+        "title": "Weekly challenges",
+        "body": "A fresh challenge drawn from hundreds of stat-driven prompts each week, worth easy/medium/hard bonus points on top of your normal totals."
+      },
+      {
+        "n": "05",
+        "title": "Man of the Match, automatically",
+        "body": "The moment a week is logged, statsDor scores every performance and crowns the standout — with the runner-up comparison to back it up."
+      },
+      {
+        "n": "06",
+        "title": "Scouting reports & tiers",
+        "body": "Every member gets a living scouting report: form, tier, and a market value that rises and falls with their recent performances."
+      },
+      {
+        "n": "07",
+        "title": "Configurable stat attributes",
+        "body": "Goals, assists, dribbles, and more come enabled by default — toggle any of them off, or add your own, per Space, any time from Settings."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Ready to settle the rivalry?",
+    "body": "Create your Space in under a minute. Invite a friend, log your first week, and let the numbers do the talking.",
+    "cta": "Get started for free"
+  },
+  "pricing": {
+    "eyebrow": "Pricing",
+    "title": "Simple, seat-based pricing",
+    "subtitle": "Every feature is available on every plan. Free covers a head-to-head rivalry of two — Pro just adds room for the rest of the group.",
+    "free": {
+      "title": "Free",
+      "price": "$0",
+      "priceNote": "/ forever",
+      "features": [
+        "1 Space",
+        "2 members",
+        "Head-to-head comparison",
+        "Group standings & P-Index",
+        "Monthly & yearly tournaments",
+        "Weekly challenges & MOTM",
+        "Scouting reports & tiers"
+      ],
+      "cta": "Sign up free"
+    },
+    "pro": {
+      "badge": "More seats",
+      "title": "Pro",
+      "priceLabel": "Per extra seat",
+      "priceNote": "billed once per upgrade, no subscription",
+      "features": [
+        "Everything in Free",
+        "Extra seats for your whole crew",
+        "Priority support",
+        "Same Space, same history — just more members"
+      ],
+      "cta": "Sign up, then upgrade from Settings"
+    },
+    "footnotePre": "Already have a Space? ",
+    "footnoteLoginText": "Log in",
+    "footnotePost": " and upgrade any time from Settings → Billing — seats are added instantly, no waiting on a sales call."
+  }
+}
